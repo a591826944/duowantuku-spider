@@ -9,8 +9,8 @@ import urllib2, re, StringIO, gzip, time, os, threading, json
 PARAMS = {
                     'debug' : 0,  \
                     'requestinfo' : 0,  \
-                    'savepath': os.getcwd() + '/duowantuku', \
-                    'dbpath' : os.getcwd() + '/db', \
+                    'savepath': os.path.split(os.path.realpath(__file__))[0] + '/duowantuku', \
+                    'dbpath' : os.path.split(os.path.realpath(__file__))[0] + '/db', \
                     'visiteddb' : 'visiteddb.json', \
                     'imagedb' : 'imagedb.json', \
                   }
