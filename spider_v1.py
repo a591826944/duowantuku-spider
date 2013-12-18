@@ -40,6 +40,8 @@ def main():
     try : 
         with open(PARAMS['dbpath'] + '/' + PARAMS['imagedb'], "r") as db:
             imageDB = json.loads(db.read())
+        if len(imageDB) == 0 :
+            imageDB = {}
     except : 
         imageDB = {}
     #check response content-encodingcheckCompressData
