@@ -45,7 +45,7 @@ def main():
     except : 
         imageDB = {}
     #check response content-encodingcheckCompressData
-    result = matchString(checkCompressData(requestUrl()),'<a href="(http://tu.duowan.com/.*\.html)" target="_blank">今日囧图第(.*)弹</a>', 0, 1)
+    result = matchString(checkCompressData(requestUrl()),'<a href="(http://tu.duowan.com/.*\.html)" target="_blank">今日囧图第(.*)弹.*</a>', 0, 1)
     if result is None or visitedUrl.has_key(result[0][1]) :
         trace('Not found new "jiongtu" link!')
         exit()
