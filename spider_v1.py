@@ -45,13 +45,13 @@ def main():
     except : 
         imageDB = {}
     #check response content-encodingcheckCompressData
-    result = matchString(checkCompressData(requestUrl()),'<a href="(http://tu.duowan.com/.*\.html)" target="_blank">今日囧图第(.*)弹.*</a>', 0, 1)
+    result = matchString(checkCompressData(requestUrl()),'<a href="(http://tu.duowan.com/.*\.html)" target="_blank">今日囧图第(.*)(弹|期).*</a>', 0, 1)
     if result is None or visitedUrl.has_key(result[0][1]) :
         trace('Not found new "jiongtu" link!')
         exit()
     else : 
         visitedUrl[result[0][1]] = result[0][0]
-    
+
     #get image gallery page content
     response = requestUrl(result[0][0])
     realUrl = response.geturl().replace('/gallery/', '/scroll/')
@@ -94,7 +94,8 @@ def main():
         trace('Download duowantuku images completed!....')
  
 def getImageList(content):
-    return matchString(content, '<img src="(http://s1.dwstatic.com/.*)" alt=".*"></a>\s*<p class="comment">(.*)</p>')
+    #<img src="(http://s1.dwstatic.com/.*)" alt=".*"></a>\s*<p class="comment">(.*)</p>
+    return matchString(content, '"(http://s1.dwstatic.com/.*)" data-mp4=""></span>\s*</a>\s*<p class="comment">(.*)</p>')
     
 #Initiate a request
 def requestUrl(url = URL[0], headers = URL[1], timeout=URL[2]):
@@ -120,7 +121,7 @@ def matchString(content, regex , start = None, end = None):
     if end is not None : 
         end = int(end)
     pattern = re.compile(regex, re.I)
-    matchs = pattern.findall(content) 
+    matchs = pattern.findall(content)
     if not matchs :
         dtrace('( Regex: %s ) Match result is None!' % regex, 'warning')
     else:
